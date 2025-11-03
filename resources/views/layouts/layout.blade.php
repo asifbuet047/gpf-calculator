@@ -83,12 +83,12 @@
         }
 
         .custom-border {
-            border: 3px solid black !important;
+            border: 3px solid black;
         }
 
         .custom-border th,
         .custom-border td {
-            border: 2px solid black !important;
+            border: 2px solid black;
         }
 
         .home-page {

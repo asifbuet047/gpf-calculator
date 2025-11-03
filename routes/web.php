@@ -8,3 +8,5 @@ Route::get('/', [ViewController::class, 'showHomePage'])->name('home.page');
 Route::get('/information', [ViewController::class, 'showInformationForm'])->name('show.information.form');
 
 Route::post('/information', [ViewController::class, 'evaluateInformation'])->name('submit.information');
+
+Route::post('/gpfcalculation', [ViewController::class, 'showAnnualGeneralProvidentFundCalculationPage'])->name('show.gpf.page');
