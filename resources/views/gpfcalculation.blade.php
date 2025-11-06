@@ -5,58 +5,28 @@
 @php
     $name = $values['name'];
     $year = $values['financial_year'];
+    [$startYear, $endYear] = explode('-', $values['financial_year']);
     $designation = $values['designation'];
     $office_name = $values['office_name'];
     $card_no = $values['card_no'];
-    $opening_balance = $values['opening_balance'];
-    
-    $july_contribution = $values['july_contribution'];
-    $july_advance_paid = $values['july_advance_paid'];
-    $july_advance_recovery = $values['july_advance_recovery'];
+    $opening_balance = (float) $values['opening_balance'];
 
-    $august_contribution = $values['august_contribution'];
-    $august_advance_paid = $values['august_advance_paid'];
-    $august_advance_recovery = $values['august_advance_recovery'];
-
-    $september_contribution = $values['september_contribution'];
-    $september_advance_paid = $values['september_advance_paid'];
-    $september_advance_recovery = $values['september_advance_recovery'];
-
-    $october_contribution = $values['october_contribution'];
-    $october_advance_paid = $values['october_advance_paid'];
-    $october_advance_recovery = $values['october_advance_recovery'];
-
-    $november_contribution = $values['november_contribution'];
-    $november_advance_paid = $values['november_advance_paid'];
-    $november_advance_recovery = $values['november_advance_recovery'];
-
-    $december_contribution = $values['december_contribution'];
-    $december_advance_paid = $values['december_advance_paid'];
-    $december_advance_recovery = $values['december_advance_recovery'];
-
-    $january_contribution = $values['january_contribution'];
-    $january_advance_paid = $values['january_advance_paid'];
-    $january_advance_recovery = $values['january_advance_recovery'];
-
-    $february_contribution = $values['february_contribution'];
-    $february_advance_paid = $values['february_advance_paid'];
-    $february_advance_recovery = $values['february_advance_recovery'];
-
-    $march_contribution = $values['march_contribution'];
-    $march_advance_paid = $values['march_advance_paid'];
-    $march_advance_recovery = $values['march_advance_recovery'];
-
-    $april_contribution = $values['april_contribution'];
-    $april_advance_paid = $values['april_advance_paid'];
-    $april_advance_recovery = $values['april_advance_recovery'];
-
-    $may_contribution = $values['may_contribution'];
-    $may_advance_paid = $values['may_advance_paid'];
-    $may_advance_recovery = $values['may_advance_recovery'];
-
-    $june_contribution = $values['june_contribution'];
-    $june_advance_paid = $values['june_advance_paid'];
-    $june_advance_recovery = $values['june_advance_recovery'];
+    $months = [
+        'july',
+        'august',
+        'september',
+        'october',
+        'november',
+        'december',
+        'january',
+        'february',
+        'march',
+        'april',
+        'may',
+        'june',
+    ];
+    $gpfcalculation = [$opening_balance];
+    $gpfearned = [];
 
 @endphp
 
@@ -144,14 +114,72 @@
                     <tr>
                         <td colspan="1" class="text-center custom-border">Opening</td>
                         <td colspan="1" class="text-center custom-border"></td>
-                        <td colspan="1" class="text-center custom-border">{{ number_format($opening_balance) }}</td>
+                        <td colspan="1" class="text-center custom-border">
+                            {{ number_format($opening_balance, 2, '.', ',') }}</td>
                         <td colspan="1" class="text-center custom-border"></td>
                         <td colspan="1" class="text-center custom-border"></td>
                         <td colspan="1" class="text-center custom-border"></td>
                         <td colspan="1" class="text-center custom-border"></td>
+                        <td colspan="1" class="text-center custom-border">
+                            {{ number_format($opening_balance, 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border"></td>
+                    </tr>
+                    @foreach ($months as $month)
+                        <tr>
+                            <td colspan="1" class="text-center custom-border">{{ $month }},
+                                {{ $loop->iteration <= 6 ? $startYear : $endYear }}</td>
+                            <td colspan="1" class="text-center custom-border"></td>
+                            <td colspan="1" class="text-center custom-border">
+                                {{ number_format($values[$month . '_contribution'], 2, '.', ',') }}</td>
+                            <td colspan="1" class="text-center custom-border">
+                                {{ number_format($values[$month . '_advance_paid'], 2, '.', ',') }}</td>
+                            <td colspan="1" class="text-center custom-border">
+                                {{ number_format($values[$month . '_advance_recovery'], 2, '.', ',') }}</td>
+                            <td colspan="1" class="text-center custom-border"></td>
+                            <td colspan="1" class="text-center custom-border">
+                                @php
+                                    $gpfearned[$loop->index] = 0;
+                                    $gpfcalculation[$loop->iteration] =
+                                        $gpfcalculation[$loop->index] +
+                                        (float) $values[$month . '_contribution'] +
+                                        (float) $values[$month . '_advance_recovery'] -
+                                        (float) $values[$month . '_advance_paid'];
+
+                                    if ($gpfcalculation[$loop->iteration] <= 1500000) {
+                                        $gpfearned[$loop->index] = ($gpfcalculation[$loop->iteration] * 0.13) / 12;
+                                    } elseif (
+                                        $gpfcalculation[$loop->iteration] >= 1500001 &&
+                                        $gpfcalculation[$loop->iteration] <= 3000000
+                                    ) {
+                                        $gpfearned[$loop->index] =
+                                            (1500000 * 0.13) / 12 +
+                                            (($gpfcalculation[$loop->iteration] - 1500000) * 0.12) / 12;
+                                    } else {
+                                        $gpfearned[$loop->index] =
+                                            (1500000 * 0.13) / 12 +
+                                            (1500000 * 0.12) / 12 +
+                                            (($gpfcalculation[$loop->iteration] - 1500000) * 0.11) / 12;
+                                    }
+                                    echo number_format($gpfearned[$loop->index], 2, '.', ',');
+                                @endphp
+                            </td>
+                            <td colspan="1" class="text-center custom-border">
+                                {{ number_format($gpfcalculation[$loop->iteration] + (float) $values[$month . '_contribution'] + (float) $values[$month . '_advance_recovery'] - (float) $values[$month . '_advance_paid'], 2, '.', ',') }}
+                            </td>
+                            <td colspan="1" class="text-center custom-border"></td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="2" class="text-center custom-border">Profit during the year</td>
+                        <td colspan="1" class="text-center custom-border"></td>
+                        <td colspan="1" class="text-center custom-border"></td>
+                        <td colspan="1" class="text-center custom-border"></td>
+                        <td colspan="1" class="text-center custom-border"></td>
+                        <td colspan="1" class="text-center custom-border">{{ array_sum($gpfearned) }}</td>
                         <td colspan="1" class="text-center custom-border"></td>
                         <td colspan="1" class="text-center custom-border"></td>
                     </tr>
+
                 </tbody>
             </table>
 
