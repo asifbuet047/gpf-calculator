@@ -36,15 +36,15 @@
             <table class="table table-hover" style="table-layout: fixed; width: 100%;">
                 <thead class="bg-gradient-primary fw-bolder text-center">
                     <tr>
-                        <th scope="col" class="custom-border">1</th>
-                        <th scope="col" class="custom-border">2</th>
-                        <th scope="col" class="custom-border">3</th>
-                        <th scope="col" class="custom-border">4</th>
-                        <th scope="col" class="custom-border">5</th>
-                        <th scope="col" class="custom-border">6</th>
-                        <th scope="col" class="custom-border">7</th>
-                        <th scope="col" class="custom-border">8</th>
-                        <th scope="col" class="custom-border">9</th>
+                        <th scope="col" class="custom-border" hidden>1</th>
+                        <th scope="col" class="custom-border" hidden>2</th>
+                        <th scope="col" class="custom-border" hidden>3</th>
+                        <th scope="col" class="custom-border" hidden>4</th>
+                        <th scope="col" class="custom-border" hidden>5</th>
+                        <th scope="col" class="custom-border" hidden>6</th>
+                        <th scope="col" class="custom-border" hidden>7</th>
+                        <th scope="col" class="custom-border" hidden>8</th>
+                        <th scope="col" class="custom-border" hidden>9</th>
                     </tr>
                 </thead>
                 <tbody>
