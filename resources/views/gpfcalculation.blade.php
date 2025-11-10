@@ -45,7 +45,7 @@
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover" style="table-layout: fixed; width: 100%;">
                 <thead class="bg-gradient-primary fw-bolder text-center">
-                    <tr>
+                    {{-- <tr>
                         <th scope="col" class="custom-border" hidden>1</th>
                         <th scope="col" class="custom-border" hidden>2</th>
                         <th scope="col" class="custom-border" hidden>3</th>
@@ -55,20 +55,31 @@
                         <th scope="col" class="custom-border" hidden>7</th>
                         <th scope="col" class="custom-border" hidden>8</th>
                         <th scope="col" class="custom-border" hidden>9</th>
-                    </tr>
+                    </tr> --}}
+                    <colgroup>
+                        <col style="width: 11.11%;">
+                        <col style="width: 11.11%;">
+                        <col style="width: 11.11%;">
+                        <col style="width: 11.11%;">
+                        <col style="width: 11.11%;">
+                        <col style="width: 11.11%;">
+                        <col style="width: 11.11%;">
+                        <col style="width: 11.11%;">
+                        <col style="width: 11.11%;">
+                    </colgroup>
                 </thead>
                 <tbody>
                     <tr>
                         <td colspan="9" class="text-center border-0">Bangladesh Power Development Board</td>
                     </tr>
                     <tr>
-                        <td colspan="9" class="text-center">Central Overhead Offices Accounting Cell (COOAC)</td>
+                        <td colspan="9" class="text-center border-0">{{ $values['office_name'] }}</td>
                     </tr>
                     <tr>
-                        <td colspan="9" class="text-center">Statement of GPF</td>
+                        <td colspan="9" class="text-center border-0">Statement of GPF</td>
                     </tr>
                     <tr>
-                        <td colspan="9" class="text-center">For Financial Year {{ $year }}</td>
+                        <td colspan="9" class="text-center border-0">For Financial Year {{ $year }}</td>
                     </tr>
                     <tr>
                         <td colspan="1" class="">Name of Employee</td>
@@ -90,7 +101,7 @@
                     </tr>
                     <tr>
                         <td colspan="1" class="text-center custom-border"></td>
-                        <td colspan="1" class="text-center custom-border">Calculation</td>
+                        <td colspan="1" class="text-center custom-border">Refunded</td>
                         <td colspan="1" class="text-center custom-border">Contribution</td>
                         <td colspan="1" class="text-center custom-border">Paid</td>
                         <td colspan="1" class="text-center custom-border">Recovery</td>
@@ -136,7 +147,7 @@
                     </tr>
                     @foreach ($months as $month)
                         <tr>
-                            <td colspan="1" class="text-center custom-border">{{ $month }},
+                            <td colspan="1" class="text-start custom-border">{{ ucfirst($month) }},
                                 {{ $loop->iteration <= 6 ? $startYear : $endYear }}</td>
                             <td colspan="1" class="text-center custom-border">
                                 {{ number_format($values[$month . '_refunded'], 2, '.', ',') }}</td>
@@ -196,24 +207,133 @@
                     </tr>
 
                     <tr>
-                        <td colspan="1" class="text-center custom-border fw-bolder">To during the year</td>
-                        <td colspan="1" class="text-center custom-border fw-bolder">
+                        <td colspan="1" class="text-center custom-border">To during the year</td>
+                        <td colspan="1" class="text-center custom-border">
                             {{ number_format(array_sum($refunded), 2, '.', ',') }}</td>
-                        <td colspan="1" class="text-center custom-border fw-bolder">
+                        <td colspan="1" class="text-center custom-border">
                             {{ number_format(array_sum($contribution), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border">
+                            {{ number_format(array_sum($paid), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border">
+                            {{ number_format(array_sum($recovery), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border">
+                        </td>
+                        <td colspan="1" class="text-center custom-border">
+                            {{ number_format(array_sum($gpfearned), 2, '.', ',') }}
+                        </td>
+                        <td colspan="1" class="text-center custom-border">
+                            {{ number_format(array_sum($gpfcalculation) - $opening_balance, 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="text-center custom-border fw-bolder">Grand Total</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($contribution) + $opening_balance - array_sum($refunded), 2, '.', ',') }}
+                        </td>
                         <td colspan="1" class="text-center custom-border fw-bolder">
                             {{ number_format(array_sum($paid), 2, '.', ',') }}</td>
                         <td colspan="1" class="text-center custom-border fw-bolder">
                             {{ number_format(array_sum($recovery), 2, '.', ',') }}</td>
-                        <td colspan="1" class="text-center custom-border fw-bolder">
-                        </td>
-                        <td colspan="1" class="text-center custom-border fw-bolder">
-                            {{ number_format(array_sum($gpfearned), 2, '.', ',') }}
-                        </td>
-                        <td colspan="1" class="text-center custom-border fw-bolder">
-                            {{ number_format(array_sum($gpfcalculation) - $opening_balance, 2, '.', ',') }}</td>
                         <td colspan="1" class="text-center custom-border fw-bolder"></td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($gpfearned), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                        </td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($contribution) + $opening_balance - array_sum($refunded) + array_sum($recovery) + array_sum($gpfearned) - array_sum($paid), 2, '.', ',') }}
+                        </td>
                     </tr>
+                    <tr>
+                        <td colspan="2" class="text-start fw-bolder border-0">Advance balance</td>
+                        <td colspan="7" class="text-start fw-bolder border-0">
+                            {{ number_format(array_sum($paid) - array_sum($recovery), 2, '.', ',') }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="9" class="text-start fw-bolder border-0"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" class="text-start fw-bolder border-0"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="2" class="text-start fw-bolder custom-border">Particulars</td>
+                        <td colspan="2" class="text-end fw-bolder custom-border">Amount(Tk)</td>
+                        <td colspan="1" class="text-start fw-bolder custom-border"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="2" class="text-start fw-bolder custom-border">{{ '01/07/' . $startYear }} Balance
+                        </td>
+                        <td colspan="2" class="text-end fw-bolder custom-border">{{ $opening_balance }}</td>
+                        <td colspan="1" class="text-start fw-bolder custom-border"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="2" class="text-start fw-bolder custom-border">Add:Con.+Adv.Ry.</td>
+                        <td colspan="2" class="text-end fw-bolder custom-border">
+                            {{ number_format(array_sum($contribution) + array_sum($recovery), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-start fw-bolder custom-border"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="2" class="text-start fw-bolder custom-border">Add Profit du. Year:</td>
+                        <td colspan="2" class="text-end fw-bolder custom-border">
+                            {{ number_format(array_sum($gpfearned), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-start fw-bolder custom-border"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="2" class="text-start fw-bolder custom-border">Total</td>
+                        <td colspan="2" class="text-end fw-bolder custom-border">
+                            {{ number_format($opening_balance + array_sum($contribution) + array_sum($recovery) + array_sum($gpfearned), 2, '.', ',') }}
+                        </td>
+                        <td colspan="1" class="text-start fw-bolder custom-border"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="2" class="text-start fw-bolder custom-border">Less. Advance</td>
+                        <td colspan="2" class="text-end fw-bolder custom-border">
+                            {{ number_format(array_sum($paid) + array_sum($refunded), 2, '.', ',') }}
+                        </td>
+                        <td colspan="1" class="text-start fw-bolder custom-border"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="1" class="border-0"></td>
+                        <td colspan="2" class="text-start fw-bolder custom-border">{{ '30/06/' . $endYear }} Balance
+                        </td>
+                        <td colspan="2" class="text-end fw-bolder custom-border">
+                            {{ number_format($opening_balance + array_sum($contribution) + array_sum($recovery) + array_sum($gpfearned) - array_sum($paid) - array_sum($refunded), 2, '.', ',') }}
+                        </td>
+                        <td colspan="1" class="text-start fw-bolder custom-border"></td>
                     </tr>
 
                 </tbody>
