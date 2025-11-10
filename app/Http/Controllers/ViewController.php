@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+
 
 class ViewController extends Controller
 {
@@ -97,5 +99,19 @@ class ViewController extends Controller
     {
         $values = $request->all();
         return view('gpfcalculation', compact('values'));
+    }
+
+    public function generatePdf(Request $request)
+    {
+        $values = $request->all();
+        $pdf = PDF::loadView('gpfcalculationpdf', compact('values'))->setPaper('a4')->setOptions([
+            'encoding' => 'utf-8',
+            'enable-local-file-access' => true,
+            'margin-top' => 5,
+            'margin-bottom' => 2,
+            'margin-left' => 5,
+            'margin-right' => 5
+        ]);
+        return $pdf->inline('gpf.pdf');
     }
 }

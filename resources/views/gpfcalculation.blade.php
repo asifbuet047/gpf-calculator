@@ -41,21 +41,11 @@
 @endphp
 
 @section('content')
-    <div class="mb-4">
-        <div class="table-responsive shadow rounded p-2">
+    <div class="m-4">
+        <div class="table-responsive shadow rounded">
             <table class="table table-hover" style="table-layout: fixed; width: 100%;">
                 <thead class="bg-gradient-primary fw-bolder text-center">
-                    {{-- <tr>
-                        <th scope="col" class="custom-border" hidden>1</th>
-                        <th scope="col" class="custom-border" hidden>2</th>
-                        <th scope="col" class="custom-border" hidden>3</th>
-                        <th scope="col" class="custom-border" hidden>4</th>
-                        <th scope="col" class="custom-border" hidden>5</th>
-                        <th scope="col" class="custom-border" hidden>6</th>
-                        <th scope="col" class="custom-border" hidden>7</th>
-                        <th scope="col" class="custom-border" hidden>8</th>
-                        <th scope="col" class="custom-border" hidden>9</th>
-                    </tr> --}}
+
                     <colgroup>
                         <col style="width: 11.11%;">
                         <col style="width: 11.11%;">

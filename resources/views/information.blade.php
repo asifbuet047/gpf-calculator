@@ -31,9 +31,13 @@
 
                             <div class="mt-4 mb-4 px-5 row">
                                 @if (session()->has('financial_year'))
-                                    <div class="col-12">
+                                    <div class="col-6 g-2">
                                         <button class="btn btn-info w-100" type="submit" form="gpf_form">Go to Calculation
                                             Page</button>
+                                    </div>
+                                    <div class="col-6 g-2">
+                                        <button class="btn btn-primary w-100" type="submit" form="gpf_form">Downlaod as
+                                            PDF</button>
                                     </div>
                                 @endif
                             </div>
@@ -48,7 +52,7 @@
                                 </div>
                             @endif
                             <form
-                                action="{{ session()->has('financial_year') ? route('show.gpf.page') : route('submit.information') }}"
+                                action="{{ session()->has('financial_year') ? route('generate.pdf') : route('submit.information') }}"
                                 method="POST" id="gpf_form">
                                 @csrf
 
