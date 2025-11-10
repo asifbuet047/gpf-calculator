@@ -130,6 +130,13 @@
             border-color: #33C3FF;
             box-shadow: 0 0 5px #33C3FF;
         }
+
+        .input-validated {
+            background-color: #e0e0e0;
+            color: #555;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </head>
 

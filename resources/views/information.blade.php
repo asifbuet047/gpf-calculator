@@ -29,7 +29,7 @@
                             <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 row justify-content-center align-items-center font-bold">
                                 Employee Primary Information</h2>
 
-                            <div class="mt-4 row">
+                            <div class="mt-4 mb-4 px-5 row">
                                 @if (session()->has('financial_year'))
                                     <div class="col-12">
                                         <button class="btn btn-info w-100" type="submit" form="gpf_form">Go to Calculation
@@ -56,7 +56,7 @@
                                     <label class="form-label" for="financial_year">Financial Year</label>
                                     @if (session()->has('financial_year'))
                                         <select name="financial_year" id="financial_year"
-                                            class="form-select border border-success">
+                                            class="form-select border border-success input-validated">
                                             <option value="2021-2022"
                                                 {{ session('fiscal_year') == '2021-2022' ? 'selected' : '' }}>
                                                 2021-2022</option>
@@ -88,7 +88,7 @@
                                     <label class="form-label" for="name">Name</label>
                                     @if (session()->has('name'))
                                         <input type="text" id="name" name="name"
-                                            class="form-control custom-input" value="{{ session('name') }}" readonly />
+                                            class="form-control input-validated" value="{{ session('name') }}" readonly />
                                     @else
                                         <input type="text" id="name" name="name"
                                             class="form-control custom-input" placeholder="Name" />
@@ -100,7 +100,7 @@
                                         <label class="form-label" for="office">Office name</label>
                                         @if (session()->has('office_name'))
                                             <input type="text" id="office_name" name="office_name"
-                                                class="form-control custom-input" value="{{ session('office_name') }}"
+                                                class="form-control input-validated" value="{{ session('office_name') }}"
                                                 readonly />
                                         @else
                                             <input type="text" id="office_name" name="office_name"
@@ -111,7 +111,7 @@
                                         <label class="form-label" for="designation">Designation</label>
                                         @if (session()->has('designation'))
                                             <input type="text" id="designation" name="designation"
-                                                class="form-control custom-input" value="{{ session('designation') }}"
+                                                class="form-control input-validated" value="{{ session('designation') }}"
                                                 readonly />
                                         @else
                                             <input type="text" id="designation" name="designation"
@@ -122,7 +122,7 @@
                                         <label class="form-label" for="card_no">GPF Card No</label>
                                         @if (session()->has('card_no'))
                                             <input type="text" id="card_no" name="card_no"
-                                                class="form-control custom-input" value="{{ session('card_no') }}"
+                                                class="form-control input-validated" value="{{ session('card_no') }}"
                                                 readonly />
                                         @else
                                             <input type="text" id="card_no" name="card_no"
@@ -134,8 +134,8 @@
                                             balance</label>
                                         @if (session()->has('opening_balance'))
                                             <input type="number" id="opening_balance" name="opening_balance"
-                                                class="form-control custom-input" value="{{ session('opening_balance') }}"
-                                                readonly />
+                                                class="form-control input-validated"
+                                                value="{{ session('opening_balance') }}" readonly />
                                         @else
                                             <input type="number" id="opening_balance" name="opening_balance"
                                                 class="form-control custom-input" placeholder="Opening balance" />
@@ -172,8 +172,8 @@
                                             <td class="custom-table-border text-center" colspan="1"></td>
                                             <td class="custom-table-border text-center" colspan="1">355(DR)</td>
                                             <td class="custom-table-border text-center" colspan="1">355(CR)</td>
-                                            <td class="custom-table-border text-center" colspan="1">345(DR)</td>
-                                            <td class="custom-table-border text-center" colspan="1">345(CR)</td>
+                                            <td class="custom-table-border text-center" colspan="1">145(DR)</td>
+                                            <td class="custom-table-border text-center" colspan="1">145(CR)</td>
                                         </tr>
                                         @foreach ($months as $month)
                                             <tr>
@@ -183,7 +183,7 @@
                                                     <td class="custom-table-border text-center" colspan="1">
                                                         <input type="number" id="{{ $month . '_refunded' }}"
                                                             name="{{ $month . '_refunded' }}"
-                                                            class="form-control text-end"
+                                                            class="form-control text-end input-validated"
                                                             value="{{ session($month . '_refunded') }}" readonly />
                                                     </td>
                                                 @else
@@ -199,13 +199,14 @@
                                                 @if (session()->has($month . '_contribution'))
                                                     <td class="custom-table-border text-center" colspan="1"> <input
                                                             type="number" id="{{ $month . '_contribution' }}"
-                                                            name="{{ $month . '_contribution' }}" class="form-control "
+                                                            name="{{ $month . '_contribution' }}"
+                                                            class="form-control text-end input-validated"
                                                             value="{{ session($month . '_contribution') }}" readonly />
                                                     </td>
                                                 @else
                                                     <td class="custom-table-border text-center" colspan="1"> <input
                                                             type="number" id="{{ $month . '_contribution' }}"
-                                                            name="{{ $month . '_contribution' }}" class="form-control "
+                                                            name="{{ $month . '_contribution' }}" class="form-control"
                                                             placeholder="Contribution amount" /></td>
                                                 @endif
 
@@ -213,7 +214,7 @@
                                                     <td class="custom-table-border text-center" colspan="1"> <input
                                                             type="number" id="{{ $month . '_advance_paid' }}"
                                                             name="{{ $month . '_advance_paid' }}"
-                                                            class="form-control text-end"
+                                                            class="form-control text-end input-validated"
                                                             value="{{ session($month . '_advance_paid') }}" readonly />
                                                     </td>
                                                 @else
@@ -229,7 +230,7 @@
                                                     <td class="custom-table-border text-center" colspan="1"> <input
                                                             type="number" id="{{ $month . '_advance_recovery' }}"
                                                             name="{{ $month . '_advance_recovery' }}"
-                                                            class="form-control text-end"
+                                                            class="form-control text-end input-validated"
                                                             value="{{ session($month . '_advance_recovery') }}"
                                                             readonly /></td>
                                                 @else
