@@ -180,8 +180,8 @@
                                         </tr>
                                         @foreach ($months as $month)
                                             <tr>
-                                                <td class="custom-table-border text-center" colspan="1">
-                                                    {{ $month }} <span id="{{ $month }}"></span></td>
+                                                <td class="custom-table-border text-start" colspan="1">
+                                                    {{ ucfirst($month) }} <span id="{{ $month }}"></span></td>
                                                 @if (session()->has($month . '_refunded'))
                                                     <td class="custom-table-border text-center" colspan="1">
                                                         <input type="number" id="{{ $month . '_refunded' }}"

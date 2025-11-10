@@ -112,6 +112,6 @@ class ViewController extends Controller
             'margin-left' => 5,
             'margin-right' => 5
         ]);
-        return $pdf->download('gpf.pdf');
+        return $pdf->inline('gpf.pdf');
     }
 }

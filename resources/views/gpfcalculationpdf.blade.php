@@ -52,19 +52,12 @@
             font-size: 12px;
         }
 
-        table td,
-        table th {
-            padding: 4px;
-        }
 
         .custom-border {
-            border: 3px solid black;
-        }
-
-        .custom-border th,
-        .custom-border td {
             border: 2px solid black;
         }
+
+       
     </style>
 </head>
 
@@ -86,16 +79,16 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="9" class="text-center border-0">Bangladesh Power Development Board</td>
+                    <td colspan="9" class="text-center border-0 p-0 m-0">Bangladesh Power Development Board</td>
                 </tr>
                 <tr>
-                    <td colspan="9" class="text-center border-0">{{ $values['office_name'] }}</td>
+                    <td colspan="9" class="text-center border-0 p-0 m-0">{{ $values['office_name'] }}</td>
                 </tr>
                 <tr>
-                    <td colspan="9" class="text-center border-0">Statement of GPF</td>
+                    <td colspan="9" class="text-center border-0 p-0 m-0">Statement of GPF</td>
                 </tr>
                 <tr>
-                    <td colspan="9" class="text-center border-0">For Financial Year {{ $year }}</td>
+                    <td colspan="9" class="text-center border-0 p-0 m-0">For Financial Year {{ $year }}</td>
                 </tr>
                 <tr>
                     <td colspan="1" class="">Name of Employee</td>
