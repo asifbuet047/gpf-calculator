@@ -29,6 +29,15 @@
                             <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 row justify-content-center align-items-center font-bold">
                                 Employee Primary Information</h2>
 
+                            <div class="mt-4 row">
+                                @if (session()->has('financial_year'))
+                                    <div class="col-12">
+                                        <button class="btn btn-info w-100" type="submit" form="gpf_form">Go to Calculation
+                                            Page</button>
+                                    </div>
+                                @endif
+                            </div>
+
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul class="mb-0">
@@ -40,7 +49,7 @@
                             @endif
                             <form
                                 action="{{ session()->has('financial_year') ? route('show.gpf.page') : route('submit.information') }}"
-                                method="POST">
+                                method="POST" id="gpf_form">
                                 @csrf
 
                                 <div class="mb-4">
@@ -158,32 +167,92 @@
                                             <td class="custom-table-border text-center" colspan="1">Paid</td>
                                             <td class="custom-table-border text-center" colspan="1">Recovery</td>
                                         </tr>
+
+                                        <tr>
+                                            <td class="custom-table-border text-center" colspan="1"></td>
+                                            <td class="custom-table-border text-center" colspan="1">355(DR)</td>
+                                            <td class="custom-table-border text-center" colspan="1">355(CR)</td>
+                                            <td class="custom-table-border text-center" colspan="1">345(DR)</td>
+                                            <td class="custom-table-border text-center" colspan="1">345(CR)</td>
+                                        </tr>
                                         @foreach ($months as $month)
                                             <tr>
                                                 <td class="custom-table-border text-center" colspan="1">
                                                     {{ $month }} <span id="{{ $month }}"></span></td>
-                                                <td class="custom-table-border text-center" colspan="1">
-                                                    <input type="number" id="{{ $month . '_refunded' }}"
-                                                        name="{{ $month . '_refunded' }}" class="form-control "
-                                                        placeholder="{{ $month . '_refunded' }}" />
-                                                </td>
-                                                <td class="custom-table-border text-center" colspan="1"> <input
-                                                        type="number" id="{{ $month . '_contribution' }}"
-                                                        name="{{ $month . '_contribution' }}" class="form-control "
-                                                        placeholder="{{ $month . '_contribution' }}" /></td>
-                                                <td class="custom-table-border text-center" colspan="1"> <input
-                                                        type="number" id="{{ $month . '_advance_paid' }}"
-                                                        name="{{ $month . '_advance_paid' }}" class="form-control "
-                                                        placeholder="{{ $month . '_advance_paid' }}" /></td>
-                                                <td class="custom-table-border text-center" colspan="1"> <input
-                                                        type="number" id="{{ $month . '_advance_recovery' }}"
-                                                        name="{{ $month . '_advance_recovery' }}" class="form-control "
-                                                        placeholder="{{ $month . '_advance_recovery' }}" /></td>
+                                                @if (session()->has($month . '_refunded'))
+                                                    <td class="custom-table-border text-center" colspan="1">
+                                                        <input type="number" id="{{ $month . '_refunded' }}"
+                                                            name="{{ $month . '_refunded' }}"
+                                                            class="form-control text-end"
+                                                            value="{{ session($month . '_refunded') }}" readonly />
+                                                    </td>
+                                                @else
+                                                    <td class="custom-table-border text-center" colspan="1">
+                                                        <input type="number" id="{{ $month . '_refunded' }}"
+                                                            name="{{ $month . '_refunded' }}"
+                                                            class="form-control text-end" placeholder="Refunded amount"
+                                                            value="0" />
+                                                    </td>
+                                                @endif
+
+
+                                                @if (session()->has($month . '_contribution'))
+                                                    <td class="custom-table-border text-center" colspan="1"> <input
+                                                            type="number" id="{{ $month . '_contribution' }}"
+                                                            name="{{ $month . '_contribution' }}" class="form-control "
+                                                            value="{{ session($month . '_contribution') }}" readonly />
+                                                    </td>
+                                                @else
+                                                    <td class="custom-table-border text-center" colspan="1"> <input
+                                                            type="number" id="{{ $month . '_contribution' }}"
+                                                            name="{{ $month . '_contribution' }}" class="form-control "
+                                                            placeholder="Contribution amount" /></td>
+                                                @endif
+
+                                                @if (session()->has($month . '_advance_paid'))
+                                                    <td class="custom-table-border text-center" colspan="1"> <input
+                                                            type="number" id="{{ $month . '_advance_paid' }}"
+                                                            name="{{ $month . '_advance_paid' }}"
+                                                            class="form-control text-end"
+                                                            value="{{ session($month . '_advance_paid') }}" readonly />
+                                                    </td>
+                                                @else
+                                                    <td class="custom-table-border text-center" colspan="1"> <input
+                                                            type="number" id="{{ $month . '_advance_paid' }}"
+                                                            name="{{ $month . '_advance_paid' }}"
+                                                            class="form-control text-end" placeholder="Advance paid"
+                                                            value="0" />
+                                                    </td>
+                                                @endif
+
+                                                @if (session()->has($month . '_advance_recovery'))
+                                                    <td class="custom-table-border text-center" colspan="1"> <input
+                                                            type="number" id="{{ $month . '_advance_recovery' }}"
+                                                            name="{{ $month . '_advance_recovery' }}"
+                                                            class="form-control text-end"
+                                                            value="{{ session($month . '_advance_recovery') }}"
+                                                            readonly /></td>
+                                                @else
+                                                    <td class="custom-table-border text-center" colspan="1"> <input
+                                                            type="number" id="{{ $month . '_advance_recovery' }}"
+                                                            name="{{ $month . '_advance_recovery' }}"
+                                                            class="form-control text-end" placeholder="Advance recovery"
+                                                            value="0" /></td>
+                                                @endif
                                             </tr>
                                         @endforeach
 
                                     </tbody>
                                 </table>
+
+                                <div class="mt-4 row">
+                                    @if (!session()->has('financial_year'))
+                                        <div class="col-12">
+                                            <button class="btn btn-success w-100" type="submit">Validate Info</button>
+                                        </div>
+                                    @endif
+
+                                </div>
 
 
 

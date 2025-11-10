@@ -128,7 +128,9 @@
                         <tr>
                             <td colspan="1" class="text-center custom-border">{{ $month }},
                                 {{ $loop->iteration <= 6 ? $startYear : $endYear }}</td>
-                            <td colspan="1" class="text-center custom-border"></td>
+                            <td colspan="1" class="text-center custom-border">
+                                {{ number_format($values[$month . '_refunded'], 2, '.', ',') }}</td>
+                            </td>
                             <td colspan="1" class="text-center custom-border">
                                 {{ number_format($values[$month . '_contribution'], 2, '.', ',') }}</td>
                             <td colspan="1" class="text-center custom-border">
@@ -140,7 +142,8 @@
                                 @php
                                     $gpfearned[$loop->index] = 0;
                                     $gpfcalculation[$loop->iteration] =
-                                        $gpfcalculation[$loop->index] +
+                                        $gpfcalculation[$loop->index] -
+                                        (float) $values[$month . '_refunded'] +
                                         (float) $values[$month . '_contribution'] +
                                         (float) $values[$month . '_advance_recovery'] -
                                         (float) $values[$month . '_advance_paid'];
