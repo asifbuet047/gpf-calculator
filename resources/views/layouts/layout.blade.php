@@ -114,6 +114,22 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
+
+        .custom-input {
+            border: 2px solid #76D7C4;
+            border-radius: 5px;
+            padding: 8px 12px;
+            outline: none;
+        }
+
+        .custom-table-border {
+            border: 2px solid #76D7C4;
+        }
+
+        .custom-input:focus {
+            border-color: #33C3FF;
+            box-shadow: 0 0 5px #33C3FF;
+        }
     </style>
 </head>
 
