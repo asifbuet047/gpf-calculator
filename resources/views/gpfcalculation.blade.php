@@ -27,6 +27,16 @@
     ];
     $gpfcalculation = [$opening_balance];
     $gpfearned = [];
+    $refunded = [];
+    $contribution = [];
+    $paid = [];
+    $recovery = [];
+    foreach ($months as $month) {
+        $refunded[] = (float) $values[$month . '_refunded'];
+        $contribution[] = (float) $values[$month . '_contribution'];
+        $paid[] = (float) $values[$month . '_advance_paid'];
+        $recovery[] = (float) $values[$month . '_advance_recovery'];
+    }
 
 @endphp
 
@@ -178,11 +188,32 @@
                         <td colspan="1" class="text-center custom-border"></td>
                         <td colspan="1" class="text-center custom-border"></td>
                         <td colspan="1" class="text-center custom-border"></td>
-                        <td colspan="1" class="text-center custom-border fw-bolder">
+                        <td colspan="1" class="text-center custom-border">
                             {{ number_format(array_sum($gpfearned), 2, '.', ',') }}</td>
-                        <td colspan="1" class="text-center custom-border fw-bolder">
+                        <td colspan="1" class="text-center custom-border">
                             {{ number_format(array_sum($gpfcalculation) - $opening_balance, 2, '.', ',') }}</td>
                         <td colspan="1" class="text-center custom-border"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1" class="text-center custom-border fw-bolder">To during the year</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($refunded), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($contribution), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($paid), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($recovery), 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                        </td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($gpfearned), 2, '.', ',') }}
+                        </td>
+                        <td colspan="1" class="text-center custom-border fw-bolder">
+                            {{ number_format(array_sum($gpfcalculation) - $opening_balance, 2, '.', ',') }}</td>
+                        <td colspan="1" class="text-center custom-border fw-bolder"></td>
+                    </tr>
                     </tr>
 
                 </tbody>

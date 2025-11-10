@@ -1,4 +1,4 @@
-<footer class="pt-5 pb-4 mt-5 text-black custom-border" style="background-color: #A2E8DD">
+<footer class="pt-5 mt-auto text-black custom-border" style="background-color: #A2E8DD">
     <style>
         .custom-border {
             border: 3px solid black !important;
@@ -9,9 +9,9 @@
 
             <!-- About -->
             <div class="col-md-4 mb-4">
-                <h5 class="text-uppercase fw-bold mb-3">Pension Management System</h5>
+                <h5 class="text-uppercase fw-bold mb-3">Annual General Provident Fund Calculator</h5>
                 <p>
-                    A quick solution to calculator GPF of any gov employee
+                    A quick solution to calculator GPF of any goverment employee
                 </p>
             </div>
 
@@ -38,6 +38,7 @@
 
     <!-- Bottom Bar -->
     <div class="text-center p-3 bg-secondary">
-        © {{ date('Y') }} GPF Management System | All Rights Reserved
+        © {{ date('Y') }} GPF Management System | All Rights Reserved | Developed and Maintained by ASIF & AKIB
     </div>
+
 </footer>

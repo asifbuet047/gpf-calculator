@@ -133,10 +133,10 @@
     </style>
 </head>
 
-<body style="background-color: #FDF0D5">
+<body class="d-flex flex-column min-vh-100" style="background-color: #FDF0D5">
     @include('partials.header') <!--Add header file-->
 
-    <section>@yield('content')</section>
+    <section class="custom-border flex-grow-1">@yield('content')</section>
 
     @include('partials.footer') <!--Add footer file-->
 
