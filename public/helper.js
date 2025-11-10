@@ -1,4 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const download_button = document.getElementById("download_button");
+    const show_button = document.getElementById("show_button");
+    const gpf_form = document.getElementById("gpf_form");
+    if (download_button && show_button) {
+        download_button.addEventListener("click", () => {
+            gpf_form.action = "/gpf/calculation/download";
+            gpf_form.submit();
+        });
+
+        show_button.addEventListener("click", () => {
+            gpf_form.action = "/gpf/calculation/view";
+            gpf_form.submit();
+        });
+    }
     const months = [
         "july",
         "august",
