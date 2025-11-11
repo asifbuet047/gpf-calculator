@@ -56,8 +56,6 @@
         .custom-border {
             border: 2px solid black;
         }
-
-       
     </style>
 </head>
 
@@ -178,7 +176,7 @@
                                 if ($gpfcalculation[$loop->iteration] <= 1500000) {
                                     $gpfearned[$loop->index] = ($gpfcalculation[$loop->iteration] * 0.13) / 12;
                                 } elseif (
-                                    $gpfcalculation[$loop->iteration] >= 1500001 &&
+                                    $gpfcalculation[$loop->iteration] > 1500000 &&
                                     $gpfcalculation[$loop->iteration] <= 3000000
                                 ) {
                                     $gpfearned[$loop->index] =
@@ -188,7 +186,7 @@
                                     $gpfearned[$loop->index] =
                                         (1500000 * 0.13) / 12 +
                                         (1500000 * 0.12) / 12 +
-                                        (($gpfcalculation[$loop->iteration] - 1500000) * 0.11) / 12;
+                                        (($gpfcalculation[$loop->iteration] - 3000000) * 0.11) / 12;
                                 }
                                 echo number_format($gpfearned[$loop->index], 2, '.', ',');
                             @endphp
