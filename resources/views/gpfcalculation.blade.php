@@ -178,7 +178,16 @@
                                 @endphp
                             </td>
                             <td colspan="1" class="text-center custom-border">
-                                {{ number_format($gpfcalculation[$loop->iteration] + (float) $values[$month . '_contribution'] + (float) $values[$month . '_advance_recovery'] - (float) $values[$month . '_advance_paid'], 2, '.', ',') }}
+                                {{ number_format(
+                                    $gpfcalculation[$loop->index] -
+                                        (float) $values[$month . '_refunded'] +
+                                        (float) $values[$month . '_contribution'] +
+                                        (float) $values[$month . '_advance_recovery'] -
+                                        (float) $values[$month . '_advance_paid'],
+                                    2,
+                                    '.',
+                                    ',',
+                                ) }}
                             </td>
                             <td colspan="1" class="text-center custom-border"></td>
                         </tr>
@@ -264,7 +273,8 @@
                         <td colspan="1" class="border-0"></td>
                         <td colspan="2" class="text-start fw-bolder custom-border">{{ '01/07/' . $startYear }} Balance
                         </td>
-                        <td colspan="2" class="text-end fw-bolder custom-border">{{ $opening_balance }}</td>
+                        <td colspan="2" class="text-end fw-bolder custom-border">
+                            {{ number_format($opening_balance, 2, '.', ',') }}</td>
                         <td colspan="1" class="text-start fw-bolder custom-border"></td>
                     </tr>
 
