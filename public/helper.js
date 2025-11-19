@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const show_button = document.getElementById("show_button");
     const gpf_form = document.getElementById("gpf_form");
     const july_contribution = document.getElementById("july_contribution");
+    const notfillingformalert = document.getElementById("notfillingformalert");
     const samecontribution_checkbox = document.getElementById(
         "samecontribution_checkbox"
     );
@@ -63,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     samecontribution_checkbox.addEventListener("change", () => {
-        console.log("first");
         if (samecontribution_checkbox.checked) {
             const july_contribution_value = july_contribution.value;
             months.forEach((month, index) => {
@@ -74,6 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     contribution.value = july_contribution_value;
                 }
             });
+        }
+    });
+
+    gpf_form.addEventListener("keydown", (event) => {
+        if (event.key == "Enter") {
+            event.preventDefault();
+            const toastBootstrap =
+                bootstrap.Toast.getOrCreateInstance(notfillingformalert);
+            toastBootstrap.show();
         }
     });
 });
