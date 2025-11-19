@@ -201,7 +201,7 @@
                         <td colspan="1" class="text-center custom-border">
                             {{ number_format(array_sum($gpfearned), 2, '.', ',') }}</td>
                         <td colspan="1" class="text-center custom-border">
-                            {{ number_format(array_sum($gpfcalculation) - $opening_balance, 2, '.', ',') }}</td>
+                        </td>
                         <td colspan="1" class="text-center custom-border"></td>
                     </tr>
 
@@ -218,10 +218,10 @@
                         <td colspan="1" class="text-center custom-border">
                         </td>
                         <td colspan="1" class="text-center custom-border">
-                            {{ number_format(array_sum($gpfearned), 2, '.', ',') }}
+
                         </td>
                         <td colspan="1" class="text-center custom-border">
-                            {{ number_format(array_sum($gpfcalculation) - $opening_balance, 2, '.', ',') }}</td>
+                        </td>
                         <td colspan="1" class="text-center custom-border fw-bolder"></td>
                     </tr>
 
