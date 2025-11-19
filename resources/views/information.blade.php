@@ -146,6 +146,17 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-2 g-1 p-2">
+                                    <div class="col-6 form-check">
+                                        <input class="form-check-input" type="checkbox" value="samecontribution_checkbox"
+                                            id="samecontribution_checkbox">
+                                        <label class="form-check-label" for="samecontribution_checkbox">
+                                            Click hete for every month same contribution
+                                        </label>
+                                    </div>
+
+                                </div>
+
 
 
                                 <table class="table table-hover" style="table-layout: fixed; width: 100%;">
